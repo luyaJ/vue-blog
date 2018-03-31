@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="24">
         <div class="grid-content bg-purple-dark">
-          <!-- footer -->
+          footer
         </div>
       </el-col>
     </el-row>
@@ -12,6 +12,7 @@
 
 <style>
   .footer{
-    /* background: forestgreen; */
+    background: forestgreen;
+    height: 60px;
   }
 </style>

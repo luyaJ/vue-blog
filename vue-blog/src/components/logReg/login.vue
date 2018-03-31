@@ -6,10 +6,10 @@
       </div>
       <div class="text item">
         <el-form status-icon>
-          <el-form-item label="用户名" prop="name">
+          <el-form-item label="用户名">
             <el-input v-model="name"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="password">
+          <el-form-item label="密码">
             <el-input v-model="password" type="password"></el-input>
           </el-form-item>
           <el-form-item>
@@ -29,27 +29,38 @@ export default {
       password: ''
     }
   },
+  // 组件内 导航守卫
   beforeRouteEnter: (to, from, next) => {
+    // 每次刷新，清空user
     next(vm => vm.$store.dispatch('setUser', null))
   },
   methods: {
     loginButton () {
       this.$axios.get('/users.json')
         .then(res => {
-          const data = res.data
-          const users = []
-          for (let i in data) {
-            const user = data[i]
+          // 格式化
+          const data = res.data // 获取已经有的用户信息
+          let users = []
+          for (let key in data) {
+            // console.log(data[key])
+            const user = data[key] // 获得一个用户
             users.push(user)
           }
+          // console.log(users)
+
           // 过滤
           let result = users.filter((user) => {
             return user.name === this.name && user.password === this.password
           })
-          // 若是未注册的账户，直接登录的话，result会为空
-          if (result != null && result.length > 0) {
+          // console.log(result)
+
+          // 在上面如果是未注册的用户直接登录，result返回为空，所以我们判断一下
+          if (result.length > 0 && result != null) {
+            // action(异步)通过store.dispatch方法触发
+            // 更改登录状态
             this.$store.dispatch('setUser', result[0].name)
-            this.$router.push({name: 'Index'})
+
+            this.$router.push('/home')
           } else {
             alert('账号或密码错误')
             this.$store.dispatch('setUser', null)

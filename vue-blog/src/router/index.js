@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Home from '@/components/home/home'
 import Login from '@/components/logReg/login'
 import Register from '@/components/logReg/register'
-import Index from '@/components/index/index'
+import Collection from '@/components/collection/collection'
+import Admin from '@/components/Admin/admin'
+import Collections from '@/components/Admin/collections'
 
 Vue.use(Router)
 
@@ -11,18 +14,30 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Index',
-      component: Index
+      component: Home
+    },
+    {
+      path: '/collection',
+      component: Collection
     },
     {
       path: '/login',
-      name: 'Login',
       component: Login
     },
     {
       path: '/register',
-      name: 'Register',
       component: Register
+    },
+    {
+      path: '/admin',
+      component: Admin,
+      redirect: '/admin/collections',
+      children: [
+        {
+          path: 'collections',
+          component: Collections
+        }
+      ]
     }
   ]
 })

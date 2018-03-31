@@ -1,45 +1,30 @@
 <template>
   <div class="header">
-    <el-row :gutter="20">
-      <el-col :span="16">
-        <div class="grid-content left">
-          <el-breadcrumb separator="★">
-            <el-breadcrumb-item :to="{ path: '/' }">豆瓣Douban</el-breadcrumb-item>
-            <el-breadcrumb-item>读书</el-breadcrumb-item>
-            <el-breadcrumb-item>电影</el-breadcrumb-item>
-            <el-breadcrumb-item>音乐</el-breadcrumb-item>
-            <el-breadcrumb-item>广播</el-breadcrumb-item>
-          </el-breadcrumb>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content right">
-          <el-breadcrumb separator="★">
-            <el-breadcrumb-item v-show="!isLogin">
-              <router-link to="/login">登录</router-link>
-            </el-breadcrumb-item>
-            <el-breadcrumb-item v-show="!isLogin">
-              <router-link to="/register">注册</router-link>
-            </el-breadcrumb-item>
-            <el-breadcrumb-item v-show="isLogin">
-              {{name}}
-            </el-breadcrumb-item>
-            <el-breadcrumb-item v-show="isLogin">
-              <router-link :to="{name:'Login'}">退出</router-link>
-            </el-breadcrumb-item>
-            <el-breadcrumb-item></el-breadcrumb-item>
-          </el-breadcrumb>
-        </div>
-      </el-col>
-    </el-row>
+    <router-link to="/">
+      <span>luya J</span>
+    </router-link>
+    <ul>
+      <router-link to="/login">
+        <li v-show="!isLogin">登录</li>
+      </router-link>
+      <router-link to="/register">
+        <li v-show="!isLogin">注册</li>
+      </router-link>
+
+      <li v-show="isLogin">{{ currentName }}</li>
+      <router-link to="/login">
+        <li v-show="isLogin"> [退出]</li>
+      </router-link>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
   computed: {
-    name () {
-      return this.$store.getters.name
+    // 拿到这两个数据
+    currentName () {
+      return this.$store.getters.currentName
     },
     isLogin () {
       return this.$store.getters.isLogin
@@ -47,3 +32,18 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+span{
+  line-height: 60px;
+  font-size: 24px;
+}
+ul{
+  display: inline-block;
+  float: right;
+}
+li{
+  display: inline-block;
+  line-height: 60px;
+}
+</style>

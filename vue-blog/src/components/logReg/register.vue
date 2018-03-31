@@ -6,13 +6,13 @@
       </div>
       <div class="text item">
         <el-form status-icon>
-          <el-form-item label="请输入您的用户名" prop="name">
+          <el-form-item label="请输入您的用户名">
             <el-input v-model="name" type="text"></el-input>
           </el-form-item>
-          <el-form-item label="请输入您的密码" prop="password">
+          <el-form-item label="请输入您的密码">
             <el-input v-model="password" type="password"></el-input>
           </el-form-item>
-          <el-form-item label="再次输入密码" prop="confirmPassword">
+          <el-form-item label="再次输入密码">
             <el-input v-model="confirmPassword" type="password"></el-input>
           </el-form-item>
           <el-form-item>
@@ -36,15 +36,15 @@ export default {
   methods: {
     registerButton () {
       if (this.password === this.confirmPassword) {
-        const formData = {
+        const userData = {
           name: this.name,
           password: this.password,
           confirmPassword: this.confirmPassword
         }
-        this.$axios.post('/users.json', formData)
-          .then(res => this.$router.push({name: 'Login'}))
+        this.$axios.post('/users.json', userData)
+          .then(res => this.$router.push('/login'))
       } else {
-        alert('两次密码不一致')
+        alert('两次输入密码不一致')
       }
     }
   }
